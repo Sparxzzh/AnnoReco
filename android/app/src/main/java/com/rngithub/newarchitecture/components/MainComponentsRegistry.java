@@ -1,4 +1,4 @@
-package com.rngithub.newarchitecture.components;
+package com.AnnoReco.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;

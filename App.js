@@ -20,54 +20,45 @@ import ThemeService from './src/services/ThemeService';
 const themeService = new ThemeService();
 
 const App = () => {
-  // const [theme, setTheme] = useState(null);
-  // const scheme = useColorScheme();
-  // console.log(scheme);
+  const [theme, setTheme] = useState(null);
 
-  // const getAppTheme = useCallback(
-  //   (primary) => {
-  //     const Theme = scheme === 'dark' ? DarkTheme : DefaultTheme;
-  //     return {
-  //       ...Theme,
-  //       colors: {
-  //         ...Theme.colors,
-  //         primary: primary,
-  //       },
-  //     };
-  //   },
-  //   [scheme],
-  // );
+  const getAppTheme = useCallback(
+    (primary) => {
+      const Theme = DarkTheme;
+      return {
+        ...Theme,
+        colors: {
+          ...Theme.colors,
+          primary: primary,
+        },
+      };
+    },
+    [],
+  );
 
-  // const getTheme = useCallback(() => {
-  //   themeService.getTheme().then((data) => {
-  //     console.log(data);
-  //     setTheme(getAppTheme(data));
-  //   });
-  // }, [getAppTheme]);
+  const getTheme = useCallback(() => {
+    themeService.getTheme().then((data) => {
+      console.log(data);
+      setTheme(getAppTheme(data));
+    });
+  }, [getAppTheme]);
 
-  // useEffect(() => {
-  //   getTheme();
-  //   const listener = DeviceEventEmitter.addListener('THEME_CHANGED', getTheme);
-  //   const subscription = Appearance.addChangeListener((preferences) => {
-  //     // do something with color scheme
-  //     console.log(preferences);
-  //     Appearance.set(preferences);
-  //     getTheme();
-  //   });
-  //   return () => {
-  //     listener && listener.remove();
-  //     subscription.remove();
-  //   };
-  // }, [getTheme]);
+  useEffect(() => {
+    getTheme();
+    const listener = DeviceEventEmitter.addListener('THEME_CHANGED', getTheme);
+    return () => {
+      listener && listener.remove();
+    };
+  }, [getTheme]);
 
-  // if (!theme) {
-  //   return null;
-  // }
-  // console.log(theme)
+  if (!theme) {
+    return null;
+  }
+  console.log(theme)
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
+      <NavigationContainer theme={theme}>
         <AppNav />
       </NavigationContainer>
     </SafeAreaProvider>

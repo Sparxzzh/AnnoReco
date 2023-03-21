@@ -24,7 +24,7 @@ const App = () => {
 
   const getAppTheme = useCallback(
     (primary) => {
-      const Theme = DarkTheme;
+      const Theme = DefaultTheme;
       return {
         ...Theme,
         colors: {
